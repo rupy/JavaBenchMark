@@ -1,7 +1,4 @@
 package javaBenchMark;
-/**
- * 
- */
 
 /**
  * Javaのベンチマークを行うプログラム
@@ -70,6 +67,13 @@ public class bench {
 			time_average += (double) benchmarkFloatDiv() / BENCHMARK_TIMES;			
 		}
 		System.out.printf("浮動小数点除算：%f(ms)\n", time_average);
+
+		// 関数呼び出し
+		time_average = 0;
+		for(int i = 0; i < BENCHMARK_TIMES; ++i){
+			time_average += (double) benchmarkCallFunc() / BENCHMARK_TIMES;			
+		}
+		System.out.printf("関数呼び出し：%f(ms)\n", time_average);
 
 	}
 
@@ -209,5 +213,28 @@ public class bench {
 		return (end_time - start_time);
 	}
 
+	/**
+	 * 関数呼び出しのベンチマーク
+	 * @return 計測時間(ms)
+	 */
+	static long benchmarkCallFunc(){
+		long start_time, end_time;
+		float a = 1;
+		
+		start_time =System.currentTimeMillis();
+		for(long i = 1; i < BENCHMARK_SIZE + 1; ++i){ // 0除算を避ける
+			emptyFunc();
+		}
+		end_time =System.currentTimeMillis();
+		return (end_time - start_time);
+	}
+
+	/**
+	 * 空の関数
+	 * @return 1
+	 */
+	static long emptyFunc(){
+		return 1;
+	}
 
 }
